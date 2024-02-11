@@ -1,0 +1,81 @@
+Virtualbox如何安装增强功能包
+https://www.bilibili.com/video/BV1iP411A71U/?vd_source=265a3e99a5e309cbb37d1e75b9b6e474
+
+
+github
+https://www.bilibili.com/video/BV1hS4y1S7wL/?spm_id_from=trigger_reload&vd_source=265a3e99a5e309cbb37d1e75b9b6e474
+
+
+python 界面
+Tkinter、PyQt、wxPython
+
+
+
+sudo apt install python3-pip
+pip3 install pygame  -i https://pypi.douban.com/simple
+
+
+
+
+新建文件：
+$ touch xx.txt
+
+
+
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+sudo apt-get install git
+
+
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+得到共享文件夹
+检查 cifs-utils 包是否已安装
+$ dpkg -s cifs-utils
+
+安装 cifs-utils 包
+$ sudo apt-get install cifs-utils
+
+相应位置建立文件夹
+mkdir get-share
+
+
+获得 uid 和 gid:
+$ id
+$ id -u
+$ id -g
+临时：mount 挂载windows共享出来的文件夹
+sudo mount -t cifs //10.168.1.99/ShareFile get-share -o username=win用户名,password=win密码           <-说明
+sudo mount -t cifs //10.168.1.99/ShareFile get-share -o username=win用户名,password=win密码,uid=your_uid,gid=your_gid
+sudo mount -t cifs //10.168.1.99/ShareFile get-share -o username=shFile,password=123              ## 例子
+sudo mount -t cifs //10.168.1.99/ShareFile get-share -o username=Future-w10,password=58198736,uid=1000,gid=1000         <---------ok
+sudo umount /path/to/mount/point           <-卸载
+
+
+
+查找用户 
+username 的 uid：id -u username    <-例子
+username 的 uid：id -u future   <-ok
+查找组 
+groupname 的 gid：id -g groupname   <-例子
+groupname 的 gid：id -g future   <-ok
+
+
+修改 sudo nano /etc/fstab 前要先备份 
+每次启动时自动挂载
+sudo nano /etc/fstab    ## 改文件
+在文件的后面添加
+//<共享服务器地址>/<共享目录> <本地挂载点> cifs <挂载选项> 0 0
+//10.168.1.99/ShareFile get-share cifs username=Future-w10,password=58198736,uid=1000,gid=1000 0 0
+sudo mount -a                   ## 测试 /etc/fstab 文件的语法是否正确
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+
+快捷键：
+$ ctrl + shift + c
+$ ctrl + shift + v
+$ ctrl + u    清空写错，未执行的指令
